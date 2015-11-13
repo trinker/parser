@@ -1,0 +1,16 @@
+citHeader("To cite parser in publications, please use:")
+
+
+citEntry(entry = "manual",
+    title = "{parser}: Sentence Parsing Tools",
+    author = "Tyler W. Rinker",
+    organization = "University at Buffalo/SUNY",
+    address = "Buffalo, New York",
+    note = "version 0.0.1",
+    year = "2015",
+    url = "http://github.com/trinker/parser",
+    textVersion  = paste("Rinker, T. W. (2015).",
+        "parser: Sentence Parsing Tools",
+        "version 0.0.1. University at Buffalo. Buffalo, New York.",
+        "http://github.com/trinker/parser")
+)
