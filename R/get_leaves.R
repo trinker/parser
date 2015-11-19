@@ -16,7 +16,7 @@
 #'     "Robots are rather evil and most are devoid of decency.",
 #'     "He is my friend.",
 #'     "Clifford the big red dog ate my lunch.",
-#'     "Profess Johns can not teach",
+#'     "Professor Johns can not teach",
 #'     "",
 #'     NA
 #' )
@@ -35,12 +35,20 @@
 #' ## Just words (in this case no difference)
 #' x %>%
 #'     get_phrase_type_regex("NP") %>%
-#'     get_leaves("(?<=\\s)[A-Za-z'-]+(?=\\))")
+#'     get_leaves("@@words")
 #' }
-get_leaves <- function(x, regex = "(?<=\\s)[A-Za-z'-]+(?=\\))"){
+get_leaves <- function(x, regex = "@tokens"){
+    if (grepl("^@", regex)) {
+        regex <- switch(regex,
+            `@tokens` = "(?<=\\s)[A-Za-z'.?!;:-]+(?=\\))",
+            `@words` = "(?<=\\s)[A-Za-z'-]+(?=\\))",
+            stop("Use a valid regex")
+        )
+    }
     lapply(x, function(y){
         unlist(qdapRegex::rm_default(y, pattern=regex, extract=TRUE))
     })
 }
+
 
 

@@ -15,7 +15,7 @@
 #'     "Robots are rather evil and most are devoid of decency.",
 #'     "He is my friend.",
 #'     "Clifford the big red dog ate my lunch.",
-#'     "Profess Johns can not teach",
+#'     "Professor Johns can not teach",
 #'     "",
 #'     NA
 #' )
@@ -43,8 +43,9 @@ gp <- function(x){
     )
 
     y <- fun(x)
-    sents <- TRUE
     inds <- detect_sent(y)
+    sents <- any(inds)
+
     y[!inds] <- lapply(y[!inds], utils::capture.output)
     while(any(sents)) {
         inds <- detect_sent(y)
@@ -56,10 +57,18 @@ gp <- function(x){
         sents <- unlist(lapply(recursed, detect_sent))
         y[inds] <- recursed
     }
-    unlist(y)
+    collapser(unlist(y))
 }
 
 
 unlister <- function(x) as_tree(x)[[1]][[2]][[1]][[2]]
 unlister2 <- function(x) x[[2]]
 detect_sent <- function(x) sapply(x, function(y) y[[1]][[1]] == "S") #grepl("\\(S ", x)
+
+collapser <- function(x){
+    unlist(lapply(textshape::split_index(gsub("^ +", "", x), grep("^[^ ]", x)), paste, collapse = ""))
+}
+
+
+
+

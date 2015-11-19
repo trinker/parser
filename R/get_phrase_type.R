@@ -18,7 +18,7 @@
 #'     "Robots are rather evil and most are devoid of decency.",
 #'     "He is my friend.",
 #'     "Clifford the big red dog ate my lunch.",
-#'     "Profess Johns can not teach",
+#'     "Professor Johns can not teach",
 #'     "",
 #'     NA
 #' )
@@ -46,18 +46,25 @@
 #'     get_phrase_type("NP") %>%
 #'     get_leaves()
 #'
-#' ## Who/What
+#' ## Who/What 1
 #' get_phrase_type(x, "NP") %>%
-#'     sapply(., "[[", 1) %>%
+#'     take() %>%
 #'     get_leaves()
 #'
 #' ## Action
 #' get_phrase_type_regex(x, "VP") %>%
-#'     sapply(., "[[", 1) %>%
+#'     take() %>%
 #'     get_phrase_type_regex("(VB|MD)") %>%
-#'     sapply(., "[[", 1) %>%
+#'     take() %>%
 #'     get_leaves()
 #' }
+#'
+#' ## Who/What 2
+#' get_phrase_type_regex(x, "VP") %>%
+#'     take() %>%
+#'     get_phrase_type_regex("NP") %>%
+#'     take() %>%
+#'     get_leaves()
 get_phrase_type <- function(x, phrase){
     y <- get_phrases(x)
     lapply(y, gpt, phrase)

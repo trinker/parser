@@ -25,7 +25,7 @@ txt <- c(
     "Robots are rather evil and most are devoid of decency.",
     "He is my friend.",
     "Clifford the big red dog ate my lunch.",
-    "Profess Johns can not teach",
+    "Professor Johns can not teach",
     "",
     NA
 )

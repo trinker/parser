@@ -4,7 +4,7 @@
 \alias{get_leaves}
 \title{Extract Tokens from a Phrase}
 \usage{
-get_leaves(x, regex = "(?<=\\\\s)[A-Za-z'-]+(?=\\\\))")
+get_leaves(x, regex = "@tokens")
 }
 \arguments{
 \item{x}{A list/vetor of phrases}
@@ -26,7 +26,7 @@ txt <- c(
     "Robots are rather evil and most are devoid of decency.",
     "He is my friend.",
     "Clifford the big red dog ate my lunch.",
-    "Profess Johns can not teach",
+    "Professor Johns can not teach",
     "",
     NA
 )
@@ -45,7 +45,7 @@ x \%>\%
 ## Just words (in this case no difference)
 x \%>\%
     get_phrase_type_regex("NP") \%>\%
-    get_leaves("(?<=\\\\s)[A-Za-z'-]+(?=\\\\))")
+    get_leaves("@words")
 }
 }
 \keyword{leaves}

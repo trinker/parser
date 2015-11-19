@@ -31,7 +31,7 @@ txt <- c(
     "Robots are rather evil and most are devoid of decency.",
     "He is my friend.",
     "Clifford the big red dog ate my lunch.",
-    "Profess Johns can not teach",
+    "Professor Johns can not teach",
     "",
     NA
 )
@@ -60,18 +60,25 @@ x \%>\%
     lapply(get_phrase_type_regex, "(PRP|NN)") \%>\%
     lapply(unlist)
 
-## Who/What
+## Who/What 1
 get_phrase_type(x, "NP") \%>\%
-    sapply(., "[[", 1) \%>\%
+    take() \%>\%
     get_leaves()
 
 ## Action
 get_phrase_type_regex(x, "VP") \%>\%
-    sapply(., "[[", 1) \%>\%
+    take() \%>\%
     get_phrase_type_regex("(VB|MD)") \%>\%
-    sapply(., "[[", 1) \%>\%
+    take() \%>\%
     get_leaves()
 }
+
+## Who/What 2
+get_phrase_type_regex(x, "VP") \%>\%
+    take() \%>\%
+    get_phrase_type_regex("NP") \%>\%
+    take() \%>\%
+    get_leaves()
 }
 \author{
 \href{http://stackoverflow.com/users/2206004/hwnd}{Jason Gray} and Tyler Rinker <tyler.rinker@gmail.com>.
