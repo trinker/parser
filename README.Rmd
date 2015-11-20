@@ -18,6 +18,18 @@ verbadge <- sprintf('<a href="https://img.shields.io/badge/Version-%s-orange.svg
 [![Coverage Status](https://coveralls.io/repos/trinker/parser/badge.svg?branch=master)](https://coveralls.io/r/trinker/parser?branch=master)
 `r verbadge`
 
+```{r, echo=FALSE, message=FALSE}
+library(knitr)
+knit_hooks$set(htmlcap = function(before, options, envir) {
+  if(!before) {
+    paste('<p class="caption"><b><em>',options$htmlcap,"</em></b></p>",sep="")
+    }
+    })
+knitr::opts_knit$set(self.contained = TRUE, cache = FALSE)
+knitr::opts_chunk$set(fig.path = "inst/figure/")
+```
+
+
 **parser** is a collection of tools used to parse sentences.  The package is a wrapper for the **NLP**/**openNLP** packages that simplifies and extends the user experience.
 
 # Installation
@@ -37,3 +49,48 @@ You are welcome to:
 * submit suggestions and bug-reports at: <https://github.com/trinker/parser/issues>
 * send a pull request on: <https://github.com/trinker/parser/>
 * compose a friendly e-mail to: <tyler.rinker@gmail.com>
+
+# Demonstration
+
+## Load the Package/Data
+
+```{r, message=FALSE}
+library(parser)
+
+txt <- c(
+    "Really, I like chocolate because it is good. It smells great.",
+    "Robots are rather evil and most are devoid of decency.",
+    "He is my friend.",
+    "Clifford the big red dog ate my lunch.",
+    "Professor Johns can not teach",
+    "",
+    NA
+)
+```
+
+## Create Annotator 
+
+```{r}
+if(!exists('parse_ann')) {
+    parse_ann <- parse_annotator()
+}
+```
+
+## Parsing
+```{r}
+(x <- parser(txt, parse_ann))
+```
+
+## Plotting
+```{r}
+plot(x[[2]])
+```
+
+```{r}
+par(
+    mfrow = c(3, 2),
+    oma = c(5,4,0,0) + 0.1,
+    mar = c(0,0,1,1) + 0.1
+)
+invisible(lapply(x[1:5], plot))
+```

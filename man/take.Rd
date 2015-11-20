@@ -23,6 +23,7 @@ take(list(1:4, LETTERS, rnorm(10)))
 take(list(1:4, LETTERS, rnorm(10)), 2)
 take(list(1:4, LETTERS, rnorm(10)), 1:3)
 
+\dontrun{
 ## Parse example
 txt <- c(
     "Really, I like chocolate because it is good. It smells great.",
@@ -40,5 +41,6 @@ parse_ann <- parse_annotator()
 get_phrase_type(x, "NP") \%>\%
     take() \%>\%
     get_leaves()
+}
 }
 

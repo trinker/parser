@@ -52,25 +52,25 @@
 #'     lapply(get_phrase_type_regex, "(PRP|NN)") %>%
 #'     lapply(unlist)
 #'
-#' ## Who/What 1
+#' ## Subject
 #' get_phrase_type(x, "NP") %>%
 #'     take() %>%
 #'     get_leaves()
 #'
-#' ## Action
+#' ## Predicate Verb
 #' get_phrase_type_regex(x, "VP") %>%
 #'     take() %>%
 #'     get_phrase_type_regex("(VB|MD)") %>%
 #'     take() %>%
 #'     get_leaves()
-#' }
 #'
-#' ## Who/What 2
+#' ## Direct Object
 #' get_phrase_type_regex(x, "VP") %>%
 #'     take() %>%
 #'     get_phrase_type_regex("NP") %>%
 #'     take() %>%
 #'     get_leaves()
+#' }
 get_phrase_type_regex <- function(x, phrase) {
     lapply(x, get_regex_phrase_helper, phrase = phrase)
 }

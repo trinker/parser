@@ -18,6 +18,11 @@ Table of Contents
 
 -   [Installation](#installation)
 -   [Contact](#contact)
+-   [Demonstration](#demonstration)
+    -   [Load the Package/Data](#load-the-packagedata)
+    -   [Create Annotator](#create-annotator)
+    -   [Parsing](#parsing)
+    -   [Plotting](#plotting)
 
 Installation
 ============
@@ -41,3 +46,71 @@ You are welcome to:
 * submit suggestions and bug-reports at: <https://github.com/trinker/parser/issues> 
 * send a pull request on: <https://github.com/trinker/parser/> 
 * compose a friendly e-mail to: <tyler.rinker@gmail.com>
+
+
+Demonstration
+=============
+
+Load the Package/Data
+---------------------
+
+    library(parser)
+
+    txt <- c(
+        "Really, I like chocolate because it is good. It smells great.",
+        "Robots are rather evil and most are devoid of decency.",
+        "He is my friend.",
+        "Clifford the big red dog ate my lunch.",
+        "Professor Johns can not teach",
+        "",
+        NA
+    )
+
+Create Annotator
+----------------
+
+    if(!exists('parse_ann')) {
+        parse_ann <- parse_annotator()
+    }
+
+Parsing
+-------
+
+    (x <- parser(txt, parse_ann))
+
+    ## [[1]]
+    ## [1] "(TOP (S (S (ADVP (RB Really))(, ,) (NP (PRP I)) (VP (VBP like) (NP (NN chocolate)) (SBAR (IN because) (S (NP (PRP it)) (VP (VBZ is) (ADJP (JJ good)))))))(. .) (NP (PRP It)) (VP (VBZ smells) (ADJP (JJ great)))(. .)))"
+    ## 
+    ## [[2]]
+    ## [1] "(TOP (S (S (NP (NNP Robots)) (VP (VBP are) (ADJP (RB rather) (JJ evil)))) (CC and) (S (NP (RBS most)) (VP (VBP are) (ADJP (JJ devoid) (PP (IN of) (NP (NN decency))))))(. .)))"
+    ## 
+    ## [[3]]
+    ## [1] "(TOP (S (NP (PRP He)) (VP (VBZ is) (NP (PRP$ my) (NN friend)))(. .)))"
+    ## 
+    ## [[4]]
+    ## [1] "(TOP (S (NP (NNP Clifford)) (NP (DT the) (JJ big) (JJ red) (NN dog)) (VP (VBD ate) (NP (PRP$ my) (NN lunch)))(. .)))"
+    ## 
+    ## [[5]]
+    ## [1] "(TOP (S (S (NP (NNP Professor) (NNP Johns)) (VP (MD can))) (RB not) (VB teach)))"
+    ## 
+    ## [[6]]
+    ## [1] NA
+    ## 
+    ## [[7]]
+    ## [1] NA
+
+Plotting
+--------
+
+    plot(x[[2]])
+
+![](inst/figure/unnamed-chunk-6-1.png)
+
+    par(
+        mfrow = c(3, 2),
+        oma = c(5,4,0,0) + 0.1,
+        mar = c(0,0,1,1) + 0.1
+    )
+    invisible(lapply(x[1:5], plot))
+
+![](inst/figure/unnamed-chunk-7-1.png)

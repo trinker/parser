@@ -69,6 +69,9 @@ collapser <- function(x){
     unlist(lapply(textshape::split_index(gsub("^ +", "", x), grep("^[^ ]", x)), paste, collapse = ""))
 }
 
-
-
-
+## extracts next level phrases
+# lapply(get_phrases(x), function(x){
+#
+#     if (is.na(x) || stringi::stri_count_regex(x, "\\(") == 1) return(x)
+#     sapply(as_tree(x)[[1]][[2]], utils::capture.output)
+# })

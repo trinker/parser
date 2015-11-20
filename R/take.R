@@ -12,6 +12,7 @@
 #' take(list(1:4, LETTERS, rnorm(10)), 2)
 #' take(list(1:4, LETTERS, rnorm(10)), 1:3)
 #'
+#' \dontrun{
 #' ## Parse example
 #' txt <- c(
 #'     "Really, I like chocolate because it is good. It smells great.",
@@ -29,6 +30,7 @@
 #' get_phrase_type(x, "NP") %>%
 #'     take() %>%
 #'     get_leaves()
+#' }
 take <- function(x, indices = 1){
     lapply(x, function(x){
         if (max(indices) > length(x)) return(character(0))
