@@ -19,10 +19,14 @@ Table of Contents
 -   [Installation](#installation)
 -   [Contact](#contact)
 -   [Demonstration](#demonstration)
-    -   [Load the Package/Data](#load-the-packagedata)
+    -   [Load the Packages/Data](#load-the-packagesdata)
     -   [Create Annotator](#create-annotator)
     -   [Parsing](#parsing)
     -   [Plotting](#plotting)
+    -   [Get Subject, Verb, and Direct Object](#get-subject-verb-and-direct-object)
+        -   [Subject](#subject)
+        -   [Predicate Verb](#predicate-verb)
+        -   [Direct Object](#direct-object)
 
 Installation
 ============
@@ -51,10 +55,12 @@ You are welcome to:
 Demonstration
 =============
 
-Load the Package/Data
----------------------
+Load the Packages/Data
+----------------------
 
-    library(parser)
+    if (!require("pacman")) install.packages("pacman")
+
+    pacman::p_load(parser, magrittr)
 
     txt <- c(
         "Really, I like chocolate because it is good. It smells great.",
@@ -114,3 +120,91 @@ Plotting
     invisible(lapply(x[1:5], plot))
 
 ![](inst/figure/unnamed-chunk-7-1.png)
+
+Get Subject, Verb, and Direct Object
+------------------------------------
+
+### Subject
+
+    get_phrase_type(x, "NP") %>%
+        take() %>%
+        get_leaves()
+
+    ## [[1]]
+    ## [1] "I"
+    ## 
+    ## [[2]]
+    ## [1] "Robots"
+    ## 
+    ## [[3]]
+    ## [1] "He"
+    ## 
+    ## [[4]]
+    ## [1] "Clifford"
+    ## 
+    ## [[5]]
+    ## [1] "Professor" "Johns"    
+    ## 
+    ## [[6]]
+    ## [1] NA
+    ## 
+    ## [[7]]
+    ## [1] NA
+
+### Predicate Verb
+
+    get_phrase_type_regex(x, "VP") %>%
+        take() %>%
+        get_phrase_type_regex("(VB|MD)") %>%
+        take() %>%
+        get_leaves()
+
+    ## [[1]]
+    ## [1] "like"
+    ## 
+    ## [[2]]
+    ## [1] "are"
+    ## 
+    ## [[3]]
+    ## [1] "is"
+    ## 
+    ## [[4]]
+    ## [1] "ate"
+    ## 
+    ## [[5]]
+    ## [1] "can"
+    ## 
+    ## [[6]]
+    ## [1] NA
+    ## 
+    ## [[7]]
+    ## [1] NA
+
+### Direct Object
+
+    get_phrase_type_regex(x, "VP") %>%
+        take() %>%
+        get_phrase_type_regex("NP") %>%
+        take() %>%
+        get_leaves()
+
+    ## [[1]]
+    ## [1] "chocolate"
+    ## 
+    ## [[2]]
+    ## NULL
+    ## 
+    ## [[3]]
+    ## [1] "my"     "friend"
+    ## 
+    ## [[4]]
+    ## [1] "my"    "lunch"
+    ## 
+    ## [[5]]
+    ## NULL
+    ## 
+    ## [[6]]
+    ## [1] NA
+    ## 
+    ## [[7]]
+    ## [1] NA
