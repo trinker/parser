@@ -1,7 +1,7 @@
 parser
 ============
 
-**NOTE** renamed parsent](https://github.com/trinker/parsent) to avoid CRAN naming conflict.  Development here discontinued.  See: https://github.com/trinker/parsent
+**NOTE** renamed [parsent](https://github.com/trinker/parsent) to avoid CRAN naming conflict.  Development here discontinued.  See: https://github.com/trinker/parsent
 
 
 [![Build
